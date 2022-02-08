@@ -20,19 +20,21 @@ export function ForgotPassword({ showSignIn }: ForgotPasswordProps) {
     e.preventDefault();
 
     if (username.length > 0) {
-      const { data } = await axios.get(
-        `https://segware-book-api.segware.io/api/forgot-password/${username}`
-      );
-
-      if (data === "") {
-        setPassword("");
-        toast.error("Username does not exist!", {
-          pauseOnHover: true,
+      const response: any = await axios
+        .get(
+          `https://segware-book-api.segware.io/api/forgot-password/${username}`
+        )
+        .catch((err) => {
+          return false;
         });
+
+      if (response === false || response.data.password === undefined) {
+        setPassword("");
+        toast.error("Username does not exist!");
         return;
       }
 
-      setPassword(data.password);
+      setPassword(response.data.password);
     }
   };
   return (
@@ -58,7 +60,7 @@ export function ForgotPassword({ showSignIn }: ForgotPasswordProps) {
           autoComplete="on"
           required
         />
-        {password !== "" && (
+        {password.length > 0 && (
           <p className={styles.password}>
             Your password is: <span>{password}</span>
           </p>
