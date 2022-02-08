@@ -1,0 +1,103 @@
+.containerLogin {
+  font-size: 2em;
+  margin-bottom: 4rem;
+  span {
+    margin-right: 1rem;
+  }
+}
+.form {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: 1.5em;
+    margin-bottom: 0.6rem;
+  }
+
+  input {
+    height: 2.5rem;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1em;
+    color: white;
+    background: #343a40;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.3rem;
+  }
+  input:first-of-type {
+    margin-bottom: 1.5rem;
+  }
+  input ~ input {
+    margin-bottom: 0.5rem;
+  }
+
+  .login {
+    height: 45px;
+    margin-top: 2rem;
+    margin-bottom: 0.4rem;
+
+    background: var(--orange);
+    border: none;
+    border-radius: 0.3rem;
+
+    font-size: 1.5em;
+    color: white;
+
+    &:hover,
+    &:focus,
+    &:active {
+      filter: brightness(0.9);
+    }
+  }
+
+  .paragraphBtn {
+    position: relative;
+    width: 70%;
+    height: 1rem;
+    margin-left: 0;
+    .forgot {
+      text-align: left;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      background: none;
+      border: none;
+      color: #fff;
+      &:hover,
+      &:active,
+      &:focus {
+        color: var(--orange);
+      }
+    }
+  }
+
+  p {
+    .spanBtn {
+      width: fit-content;
+      color: var(--orange);
+      background: none;
+      border: none;
+      cursor: pointer;
+      &:hover,
+      &:active,
+      &:focus {
+        filter: brightness(0.9);
+      }
+    }
+  }
+}
+@media screen and(max-width: 768px) {
+  .containerLogin {
+    font-size: 2em;
+    margin-bottom: 2rem;
+    span {
+      margin-right: 1rem;
+    }
+  }
+  .form {
+    width: 80%;
+  }
+}
