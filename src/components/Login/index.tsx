@@ -1,18 +1,32 @@
 import Image from "next/image";
-import Link from "next/link";
 import logo from "../../../public/images/logo.png";
 
-import { FaUser } from "react-icons/fa";
-
 import styles from "./login.module.scss";
+import { SignIn } from "../SignIn";
+import { SignUp } from "../SignUp";
+import { ForgotPassword } from "../ForgotPassword";
+import { useState } from "react";
 
 export function Login() {
-  const user = () => {};
+  const [showSigup, setShowSignup] = useState<boolean>(false);
+  const [showForgotPassword, setShowForgotPassword] = useState<boolean>(false);
+
+  function showSignIn() {
+    setShowForgotPassword(false);
+    setShowSignup(false);
+  }
+  function changeStateSignup() {
+    setShowSignup(true);
+  }
+  function changeStateForgotPassword() {
+    setShowForgotPassword(true);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.containerAside}>
         <div className={styles.logo}>
           <Image src={logo} alt="" />
+          <button onClick={() => showSignIn()} />
         </div>
         <div className={styles.slogan}>
           <p>
@@ -23,35 +37,14 @@ export function Login() {
       </div>
 
       <main>
-        <div className={styles.containerLogin}>
-          <p>
-            <span>
-              <FaUser color="white" />
-            </span>
-            Login
-          </p>
-        </div>
-        <form onSubmit={user}>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            placeholder="Enter your username"
+        {!showSigup && !showForgotPassword && (
+          <SignIn
+            showForgotPassword={changeStateForgotPassword}
+            showSignup={changeStateSignup}
           />
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="text"
-            placeholder="Enter your password"
-          />
-          <Link href="/">forgot your password?</Link>
-          <button type="submit">Login</button>
-          <p>
-            Are you new? <Link href="">Sign up already</Link>{" "}
-          </p>
-        </form>
+        )}
+        {showSigup && <SignUp showSignIn={showSignIn} />}
+        {showForgotPassword && <ForgotPassword showSignIn={showSignIn} />}
       </main>
     </div>
   );
