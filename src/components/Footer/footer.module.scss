@@ -1,0 +1,21 @@
+.footer {
+  padding: 3rem;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    text-align: center;
+    p {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.1rem;
+      text-align: center;
+      color: var(--white);
+      span {
+        color: rgb(252, 0, 0);
+        margin-left: 0.2rem;
+      }
+    }
+  }
+}
