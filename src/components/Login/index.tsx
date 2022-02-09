@@ -25,8 +25,8 @@ export function Login() {
     <div className={styles.container}>
       <div className={styles.containerAside}>
         <div className={styles.logo}>
-          <Image src={logo} alt="" />
-          <button onClick={() => showSignIn()} />
+          <Image src={logo} alt="" width={650} height={300} />
+          <button data-testid="btn-show-signin" onClick={() => showSignIn()} />
         </div>
         <div className={styles.slogan}>
           <p>

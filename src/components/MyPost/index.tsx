@@ -21,8 +21,8 @@ export function MyPost({ refreshPosts, setRefreshPosts }: MyPostProps) {
       content: fieldValue,
     };
 
-    if (body.content.length === 0) {
-      toast.warn("Please enter 1 character at least!", {
+    if (fieldValue.length === 0) {
+      toast.warn("Please enter 1 letter at least!", {
         pauseOnHover: true,
       });
       return;
@@ -60,8 +60,9 @@ export function MyPost({ refreshPosts, setRefreshPosts }: MyPostProps) {
           }}
           placeholder="You can say whatever you want to say!"
           rows={6}
+          data-testid="textarea"
         ></textarea>
-        <button type="submit" className={styles.postBtn}>
+        <button data-testid="btn-send" type="submit" className={styles.postBtn}>
           Send post
         </button>
       </form>

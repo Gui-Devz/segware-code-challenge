@@ -55,7 +55,7 @@ export function Feed({ post, setRefreshPosts, refreshPosts }: FeedProps) {
       <div className={styles.feed}>
         <p>{post.content}</p>
         <div className={styles.upVote}>
-          <button onClick={() => upVote(post.id)}>
+          <button data-testid="btn-upvote" onClick={() => upVote(post.id)}>
             <AiOutlineLike />
           </button>
           <span>{post.likes}</span>
