@@ -30,7 +30,7 @@ describe("Feeds page", () => {
     expect(screen.getByText("Feed")).toBeInTheDocument();
   });
 
-  it("should load initial data from Segware's API", async () => {
+  it("should redirect user to home page if not logged", async () => {
     const ctx = {
       req: {},
       res: {},
@@ -42,34 +42,9 @@ describe("Feeds page", () => {
 
     expect(response).toEqual(
       expect.objectContaining({
-        props: expect.objectContaining({
-          data: {
-            posts: data.posts,
-          },
-        }),
-      })
-    );
-  });
-
-  it("should return error message if request gives bad response from Segware's API", async () => {
-    const ctx = {
-      req: {},
-      res: {},
-    };
-
-    axios.get = jest.fn().mockRejectedValue({
-      data: { posts: [], errorMessage: "User not Authorized" },
-    });
-
-    const response = await getServerSideProps(ctx as GetServerSidePropsContext);
-
-    expect(response).toEqual(
-      expect.objectContaining({
-        props: expect.objectContaining({
-          data: {
-            posts: [],
-            errorMessage: "User not Authorized",
-          },
+        redirect: expect.objectContaining({
+          destination: "/",
+          permanent: false,
         }),
       })
     );
