@@ -118,6 +118,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookie = new Cookies(ctx.req, ctx.res);
   const token = cookie.get("token");
 
+  if (token === undefined) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {},
+    };
+  }
+
   const result: any = await axios
     .get("https://segware-book-api.segware.io/api/feeds", {
       headers: {
