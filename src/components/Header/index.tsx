@@ -17,10 +17,10 @@ export function Header() {
   return (
     <header className={styles.container}>
       <div className={styles.logo}>
-        <Image src={logo} alt="" />
+        <Image src={logo} alt="" width={200} height={90} />
       </div>
       <div>
-        <button onClick={() => logOut()}>
+        <button data-testid="btn-logout" onClick={() => logOut()}>
           Logout
           <span>
             <AiOutlineLogout />

@@ -35,12 +35,10 @@ export function SignUp({ showSignIn }: SignUpProps) {
     const result = await axios
       .post("https://segware-book-api.segware.io/api/sign-up", user)
       .catch((err) => {
-        if (err.response.status === 500) {
-          toast.error("Username already exists!", {
-            pauseOnHover: true,
-          });
-          return false;
-        }
+        toast.error("Username already exists!", {
+          pauseOnHover: true,
+        });
+        return false;
       });
 
     if (result) {
@@ -54,7 +52,7 @@ export function SignUp({ showSignIn }: SignUpProps) {
     <>
       <div className={styles.containerSignup}>
         <p>
-          <button onClick={() => showSignIn()}>
+          <button data-testid="btn-show-signin" onClick={() => showSignIn()}>
             <BiArrowBack color="white" />
           </button>
           Create your account
@@ -63,6 +61,7 @@ export function SignUp({ showSignIn }: SignUpProps) {
       <form className={styles.form} onSubmit={registerUser}>
         <label htmlFor="username">Username</label>
         <input
+          data-testid="username"
           id="username"
           name="username"
           type="text"
@@ -74,6 +73,7 @@ export function SignUp({ showSignIn }: SignUpProps) {
         />
         <label htmlFor="password">Password</label>
         <input
+          data-testid="password"
           id="password"
           name="password"
           type="password"
@@ -85,6 +85,7 @@ export function SignUp({ showSignIn }: SignUpProps) {
         />
         <label htmlFor="password-confirm">Confirm your password</label>
         <input
+          data-testid="password-confirm"
           id="password-confirm"
           name="passwordConfirm"
           type="password"
@@ -95,7 +96,9 @@ export function SignUp({ showSignIn }: SignUpProps) {
           required
         />
 
-        <button type="submit">Sign up</button>
+        <button data-testid="btn-signup" type="submit">
+          Sign up
+        </button>
       </form>
     </>
   );

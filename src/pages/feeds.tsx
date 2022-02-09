@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "cookies";
 import cookieCutter from "cookie-cutter";
 
@@ -28,7 +28,7 @@ type PostContent = {
 interface FeedsProps {
   data: {
     posts?: PostContent[];
-    errorMessage?: string;
+    errorMessage?: string | boolean;
   };
 }
 
@@ -38,15 +38,16 @@ export default function Feeds({ data }: FeedsProps) {
   const router = useRouter();
 
   //treats error coming from server
+  if (data.errorMessage) {
+    toast.error(data.errorMessage, {
+      pauseOnHover: true,
+    });
+
+    router.push("/");
+  }
+  //side-effect treats error coming from server related to token expiration
   useEffect(() => {
     const token = cookieCutter.get("token");
-    if (data.errorMessage) {
-      toast.error(data.errorMessage, {
-        pauseOnHover: true,
-      });
-
-      router.push("/");
-    }
 
     //if this pass, it means token is not valid anymore
     if (data.errorMessage && token) {

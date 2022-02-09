@@ -32,19 +32,21 @@ export function SignIn({ showForgotPassword, showSignup }: SignInProps) {
     const response: any = await axios
       .post("https://segware-book-api.segware.io/api/sign-in", body)
       .catch((err) => {
-        toast.error("The username or password is incorrect!", {
-          pauseOnHover: true,
-        });
-        if (err.response.status === 401) {
-          return false;
-        }
+        return false;
       });
 
+    if (response === false) {
+      toast.error("The username or password is incorrect!", {
+        pauseOnHover: true,
+      });
+      router.push("/");
+    }
+
     if (response) {
-      setPassword("");
-      setUsername("");
       cookieCutter.set("token", response.data);
       router.push("/feeds");
+      setUsername("");
+      setPassword("");
     }
   };
 
@@ -52,10 +54,9 @@ export function SignIn({ showForgotPassword, showSignup }: SignInProps) {
   useEffect(() => {
     const cookie = cookieCutter.get("token");
     if (cookie !== undefined) {
-      const notify = toast.info("You are already logged in!", {
+      toast.info("You are already logged in!", {
         pauseOnHover: true,
       });
-      notify;
       router.push("/feeds");
     }
   }, []);
@@ -94,18 +95,23 @@ export function SignIn({ showForgotPassword, showSignup }: SignInProps) {
         />
         <div className={styles.paragraphBtn}>
           <button
+            data-testid="btn-open-forgot-password"
             className={styles.forgot}
             onClick={() => showForgotPassword()}
           >
             forgot your password?
           </button>
         </div>
-        <button className={styles.login} type="submit">
+        <button data-testid="btn-login" className={styles.login} type="submit">
           Login
         </button>
         <p>
           Are you new?{" "}
-          <button className={styles.spanBtn} onClick={() => showSignup()}>
+          <button
+            data-testid="btn-open-signup"
+            className={styles.spanBtn}
+            onClick={() => showSignup()}
+          >
             Sign up already
           </button>{" "}
         </p>
